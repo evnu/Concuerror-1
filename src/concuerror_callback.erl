@@ -965,7 +965,8 @@ run_built_in(ets, give_away, 3, [Name, Pid, GiftData], Info) ->
 run_built_in(Module, Name, Arity, Args, Info)
   when
     {Module, Name, Arity} =:= {erlang, put, 2};
-    {Module, Name, Arity} =:= {os, getenv, 1}
+    {Module, Name, Arity} =:= {os, getenv, 1};
+    {Module, Name, Arity} =:= {os, getpid, 0}
     ->
   #concuerror_info{event = Event} = Info,
   #event{event_info = EventInfo, location = Location} = Event,
