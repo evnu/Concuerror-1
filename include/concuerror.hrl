@@ -276,9 +276,16 @@
             {N, A} <-
                 [
                  {atom_to_list,1},
+                 {atom_to_binary, 2},
                  {'bor', 2},
                  {binary_to_list, 1},
                  {binary_to_term, 1},
+                 {binary_to_term, 2},
+                 {binary_to_atom, 2},
+                 {binary_to_existing_atom, 2},
+                 {binary_to_float, 1},
+                 {binary_to_integer, 1},
+                 {binary_to_integer, 2},
                  {bump_reductions, 1}, %% XXX: This may change
                  {dt_append_vm_tag_data, 1},
                  {dt_spread_tag, 1},
