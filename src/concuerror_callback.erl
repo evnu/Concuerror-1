@@ -1751,6 +1751,7 @@ check_request(erl_prim_loader, {get_file, _}) -> ok;
 check_request(erl_prim_loader, {list_dir, _}) -> ok;
 check_request(file_server_2, {get_cwd}) -> ok;
 check_request(file_server_2, {read_file_info, _}) -> ok;
+check_request(file_server_2, {make_dir, _}) -> ok;
 check_request(init, {get_argument, _}) -> ok;
 check_request(init, get_arguments) -> ok;
 check_request(Name, Other) ->
