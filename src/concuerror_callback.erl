@@ -83,7 +83,8 @@
           status = running           :: 'exited'| 'exiting' | 'running' | 'waiting',
           system_ets_entries         :: ets:tid(),
           timeout                    :: timeout(),
-          timers                     :: timers()
+          timers                     :: timers(),
+          timestamp                  :: erlang:timestamp()
          }).
 
 -type concuerror_info() :: #concuerror_info{}.
@@ -988,6 +989,22 @@ run_built_in(Module, Name, Arity, Args, Info)
     undefined ->
       {NewResult, Info}
   end;
+
+%% Simply proceed timestamp by one second. Default to Epoch.
+run_built_in(os, timestamp, 0, _Args, #concuerror_info{timestamp = undefined}=Info) ->
+  NewTs = {0, 0, 0},
+  {NewTs, Info#concuerror_info{timestamp=NewTs}};
+run_built_in(os, timestamp, 0, _Args, #concuerror_info{timestamp = Ts}=Info) ->
+    {MegaSecs, Secs, MicroSecs} = Ts,
+    {MegaSecs1, Secs1} =
+      case Secs + 1 > 59 of
+        true ->
+          {MegaSecs + 1, 0};
+        false ->
+          {MegaSecs, Secs}
+      end,
+    NewTs = {MegaSecs1, Secs1, MicroSecs},
+    {NewTs, Info#concuerror_info{timestamp=NewTs}};
 
 %% For other built-ins check whether replaying has the same result:
 run_built_in(Module, Name, Arity, _Args,
