@@ -342,4 +342,9 @@
                    [
                     {internal_name2native, 1}
                    ]]
+        ++ [{re, N, A} ||
+               {N, A} <-
+                   [
+                    {run, 3}
+                   ]]
        ).
